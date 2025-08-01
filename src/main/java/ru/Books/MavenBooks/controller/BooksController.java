@@ -8,7 +8,7 @@ import ru.Books.MavenBooks.servace.Bookservace;
 import java.util.Collection;
 
 @RestController
-   @RequestMapping ("/book")
+   @RequestMapping ("book")
     public class BooksController {
 
         private final Bookservace bookservace;
@@ -18,7 +18,7 @@ import java.util.Collection;
         }
 
         @GetMapping("{id}")//  GET  http://localhost:8080/books/23
-        public ResponseEntity <Book> getBookInfo(@PathVariable long id) {
+        public ResponseEntity <Book> getBookInfo(@PathVariable Long id) {
            Book book = bookservace.findBook(id);
            if (book == null){
                // return 404 not find
@@ -46,8 +46,9 @@ import java.util.Collection;
              return ResponseEntity.ok(faundBook);
         }
         @DeleteMapping ("{id}")
-        public Book deleteBook (@PathVariable long id){
-            return bookservace.deleteBook(id);
+        public ResponseEntity <Book> deleteBook (@PathVariable Long id){
+            bookservace.deleteBook(id);
+            return ResponseEntity.ok().build();
         }
 
     }

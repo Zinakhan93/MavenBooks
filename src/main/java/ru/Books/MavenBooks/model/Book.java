@@ -1,9 +1,16 @@
 package ru.Books.MavenBooks.model;
 
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
+import java.util.Objects;
+@Entity
 public class Book {
-    private long id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
     private String author;
 
@@ -20,7 +27,7 @@ public class Book {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
