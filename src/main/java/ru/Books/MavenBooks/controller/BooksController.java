@@ -41,7 +41,6 @@ import java.util.Collection;
              Book faundBook = bookservace.aditBook(book);
              if (faundBook == null){
                  return ResponseEntity.notFound().build();
-
              }
              return ResponseEntity.ok(faundBook);
         }

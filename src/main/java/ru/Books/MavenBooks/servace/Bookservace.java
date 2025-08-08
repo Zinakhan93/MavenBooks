@@ -9,7 +9,6 @@ import java.util.Collection;
 
 @Service
 public class Bookservace {
-    @Autowired
     final BookRepository bookRepository;
 
     public Bookservace(BookRepository bookRepository) {
@@ -32,5 +31,13 @@ public class Bookservace {
     public Collection<Book> getAllBooks(){
         return bookRepository.findAll();
     }
+    public Book findByName (String name){
+        return bookRepository.findByName(name);}
+    public Collection <Book> findBooksByAuthor (String author){
+        return bookRepository.findBooksByAuthor(author);
 
+    }
+    public Collection <Book> findByNamePart(String part){
+        return bookRepository.findAllByNameContains(part);
+    }
 }
