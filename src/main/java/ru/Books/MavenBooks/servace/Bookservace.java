@@ -1,39 +1,43 @@
 package ru.Books.MavenBooks.servace;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.Books.MavenBooks.model.Book;
+import ru.Books.MavenBooks.repositories.BookRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
+
 @Service
 public class Bookservace {
-    private final HashMap<Long, Book> books = new HashMap<>();
-    private  long lastId = 0;
+    final BookRepository bookRepository;
 
+    public Bookservace(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public Book createBook(Book book) {
-        book.setId(++lastId);
-        books.put(lastId,book);
-        return book;
+         return bookRepository.save(book);
     }
 
-    public Book findBook(long id){
-        return books.get(id);
+    public Book findBook(Long id){
+        return bookRepository.findById(id).get();
     }
     public Book aditBook (Book book) {
-        if (books.containsKey(book.getId())) {
-            books.put(book.getId(), book);
-            return book;
-        }
-        return null;
+        return bookRepository.save(book);
     }
-
-    public Book deleteBook (long id){
-        return   books.remove(id);
+    public void deleteBook (Long id){
+        bookRepository.deleteById(id);
+    }
+    public Collection<Book> getAllBooks(){
+        return bookRepository.findAll();
+    }
+    public Book findByName (String name){
+        return bookRepository.findByName(name);}
+    public Collection <Book> findBooksByAuthor (String author){
+        return bookRepository.findBooksByAuthor(author);
 
     }
-    public Collection<Book> getAllBooks (){
-        return books.values();
+    public Collection <Book> findByNamePart(String part){
+        return bookRepository.findAllByNameContains(part);
     }
-
 }
